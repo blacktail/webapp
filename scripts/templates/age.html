@@ -1,0 +1,15 @@
+{{#list nav id="nav-bar" class="top"}}
+  <a href="{{url}}"><span>{{@index}} </span>{{title}}</a>
+{{/list}}
+
+{{#fi isActive}}
+  <strong>isActives</strong>
+{{/fi}}
+
+<ul>
+  {{#people}}
+    <li>
+      {{> link }}
+    </li>
+  {{/people}}
+</ul>

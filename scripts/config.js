@@ -1,0 +1,21 @@
+require.config({
+	baseUrl: 'scripts',
+	packages: ['templates'],
+	paths: {
+		jquery: 'components/jquery/jquery',
+		lodash: 'components/lodash/lodash',
+		backbone: 'components/backbone/backbone',
+		handlebars: 'components/handlebars/handlebars',
+		'partials-compiled': 'templates/auto-partials',
+		'templates-compiled': 'templates/auto-templates'
+	},
+	shim: {
+		handlebars: {
+			exports: 'Handlebars'
+		},
+		backbone: {
+			deps: ['lodash', 'jquery'],
+			exports: 'Backbone'
+		}
+	}
+});
