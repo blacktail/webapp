@@ -174,9 +174,9 @@ module.exports = function (grunt) {
 
 	grunt.registerTask('init', ['templates', 'startup', 'watch']);
 
-	grunt.registerTask('default', ['clean', 'handlebars', 'startup','copy','requirejs', 'init']);
-
 	grunt.registerTask('dist', ['clean', 'handlebars', 'startup','copy','requirejs']);
+
+	grunt.registerTask('default', ['dist', 'init']);
 
 	grunt.registerMultiTask('templates', 'template debug', function () {
 		var options = this.options({
