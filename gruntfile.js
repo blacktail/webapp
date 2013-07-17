@@ -18,7 +18,7 @@ module.exports = function (grunt) {
 			js: {
 				options: {
 					baseUrl: 'scripts',
-					mainConfigFile: 'scripts/startup.js',
+					mainConfigFile: 'scripts/config.js',
 					name: 'startup',
 					optimize: 'uglify2',
 					out: destDir + '/scripts/startup.js',
