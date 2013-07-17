@@ -157,6 +157,17 @@ module.exports = function (grunt) {
 					'scripts/templates/auto-templates.js': ['scripts/templates/**/*.html', '!scripts/templates/partials/**/*.html'] 
 				}
 			}
+		},
+		htmlmin: {
+			dist: {
+				options: {
+					removeComments: true,
+					collapseWhitespace: true
+				},
+				files: [{
+					src: destDir + '/index.html', dest: destDir + '/index.html'
+				}]
+			}
 		}
 	});
 
@@ -169,12 +180,13 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-contrib-livereload');
 	grunt.loadNpmTasks('grunt-contrib-handlebars');
-	
+	grunt.loadNpmTasks('grunt-contrib-htmlmin');	
+
 	grunt.registerTask('startup', ['concat:startup','uglify:startup']);
 
 	grunt.registerTask('init', ['templates', 'startup', 'watch']);
 
-	grunt.registerTask('dist', ['clean', 'handlebars', 'startup','copy','requirejs']);
+	grunt.registerTask('dist', ['clean', 'handlebars', 'startup','copy','requirejs', 'htmlmin']);
 
 	grunt.registerTask('default', ['dist', 'init']);
 
