@@ -1,7 +1,8 @@
 require(['app/sidebar','backbone'], function (Sidebar, Backbone) {
 	var Workspace = Backbone.Router.extend({
 		routes: {
-			"help/:page": "help"
+			"help/:page": "help",
+			"about/:info": "about"
 		},
 
 		initialize: function () {
@@ -12,6 +13,9 @@ require(['app/sidebar','backbone'], function (Sidebar, Backbone) {
 
 		help: function () {
 			console.log('help route entered.');
+		},
+		about: function (info) {
+			console.log('about', info);
 		}
 	});
 

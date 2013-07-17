@@ -17,5 +17,6 @@ require.config({
 			deps: ['lodash', 'jquery'],
 			exports: 'Backbone'
 		}
-	}
+	},
+	urlArgs: "bust=" +  (new Date()).getTime()
 });
