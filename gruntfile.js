@@ -1,12 +1,22 @@
+function crypt(text, algo) {
+	var crypto = require('crypto');
+	text = String(text || '');
+	algo = algo || 'sha256';
+
+	return crypto.createHash(algo).update(text).digest('hex');
+}
+
 module.exports = function (grunt) {
 	var destDir = grunt.option('dest') || '../build';
-
+	var destName = crypt(new Date().getTime()).slice(0, 12);
 	grunt.initConfig({
 		copy: {
 			main: {
 				options: {
 					processContent: function (content, srcPath) {
-						return content.replace(/.*<script.*livereload.*\/script>.*/, '');
+						return content.replace(/.*<script.*livereload.*\/script>.*/, '').
+							replace(/startup\.js/, destName + '.js').
+							replace(/main\.css/, destName + '.css');
 					}
 				},
 				files: [
@@ -21,7 +31,7 @@ module.exports = function (grunt) {
 					mainConfigFile: 'scripts/config.js',
 					name: 'startup',
 					optimize: 'uglify2',
-					out: destDir + '/scripts/startup.js',
+					out: destDir + '/scripts/' + destName + '.js',
 					preserveLicenseComments: false,
 					generateSourceMaps: true,
 					paths: {
@@ -40,7 +50,7 @@ module.exports = function (grunt) {
 				options: {
 					optimizeCss: 'standard',
 					cssIn: 'css/main.css',
-					out: destDir + '/css/main.css'
+					out: destDir + '/css/' + destName + '.css'
 				}
 			}
 		},
@@ -124,7 +134,12 @@ module.exports = function (grunt) {
 				}
 			}
 		},
-		clean: [destDir],
+		clean: {
+			options: {
+				force: true
+			},
+			stuff: [destDir]
+		},
 		templates: {
 			options: {
 				base: 'scripts'
@@ -159,7 +174,9 @@ module.exports = function (grunt) {
 
 	grunt.registerTask('init', ['templates', 'startup', 'watch']);
 
-	grunt.registerTask('default', ['handlebars', 'startup','copy','requirejs']);
+	grunt.registerTask('default', ['clean', 'handlebars', 'startup','copy','requirejs', 'init']);
+
+	grunt.registerTask('dist', ['clean', 'handlebars', 'startup','copy','requirejs']);
 
 	grunt.registerMultiTask('templates', 'template debug', function () {
 		var options = this.options({
