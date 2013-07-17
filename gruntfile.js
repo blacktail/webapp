@@ -162,7 +162,12 @@ module.exports = function (grunt) {
 			dist: {
 				options: {
 					removeComments: true,
-					collapseWhitespace: true
+					collapseWhitespace: true,
+					collapseBooleanAttributes: true,
+					removeAttributeQuotes: true,
+					useShortDoctype: true,
+					removeRedundantAttributes: true,
+					removeCommentsFromCDATA: true
 				},
 				files: [{
 					src: destDir + '/index.html', dest: destDir + '/index.html'
