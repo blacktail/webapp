@@ -19,5 +19,10 @@ require.config({
 			exports: 'Backbone'
 		}
 	},
+	map: {
+		'*': {
+			'underscore': 'lodash'
+		}
+	},
 	urlArgs: "bust=" +  (new Date()).getTime()
 });
