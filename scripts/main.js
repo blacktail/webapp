@@ -9,5 +9,4 @@ require([
 	});
 
 	new AppView();
-	console.log('new');
 });
