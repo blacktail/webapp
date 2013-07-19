@@ -1,0 +1,5 @@
+<span id="todo-count"><strong>{{remaining}}</strong> {{#conditional singleRemaining 'item' 'items'}}{{/conditional}} left</span>
+{{> filters}}
+{{#if completed}}
+<button id="clear-completed">Clear completed ({{completed}})</button>
+{{/if}}

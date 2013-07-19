@@ -8,7 +8,7 @@ function crypt(text, algo) {
 
 module.exports = function (grunt) {
 	var destDir = grunt.option('dest') || '../build';
-	var destName = crypt(new Date().getTime()).slice(0, 12);
+	var destName = crypt(new Date().getTime(), 'md5');
 	grunt.initConfig({
 		copy: {
 			main: {
@@ -21,6 +21,11 @@ module.exports = function (grunt) {
 				},
 				files: [
 					{expand: true, src: ['./*.html'], dest: destDir, filter: 'isFile'}
+				]
+			},
+			imgs: {
+				files: [
+					{expand: true, src: ['css/img/*.*'], dest: destDir, filter: 'isFile'}
 				]
 			}
 		},
@@ -35,7 +40,7 @@ module.exports = function (grunt) {
 					preserveLicenseComments: false,
 					generateSourceMaps: true,
 					paths: {
-						'handlebars': 'components/handlebars/handlebars.runtime',
+						'handlebars': '../components/handlebars/handlebars.runtime',
 						'partials-compiled': 'templates/partials-compiled',
 						'templates-compiled': 'templates/templates-compiled'
 					},
@@ -60,7 +65,7 @@ module.exports = function (grunt) {
 					footer: '\nrequire(["main"]);\n'
 				},
 				files: {
-					'scripts/startup.js': ['scripts/components/requirejs/require.js', 'scripts/config.js']
+					'scripts/startup.js': ['components/requirejs/require.js', 'scripts/config.js']
 				}
 			}
 		},
@@ -116,7 +121,7 @@ module.exports = function (grunt) {
 				options: {
 					livereload: true
 				},
-				files: ['scripts/components/requirejs/require.js', 'scripts/config.js'],
+				files: ['components/requirejs/require.js', 'scripts/config.js'],
 				tasks: ['startup']
 			},
 			templates: {
@@ -128,7 +133,7 @@ module.exports = function (grunt) {
 			},
 			livereload: {
 				files: ['!scripts/config.js', '!scripts/templates/**/*.html', '!scripts/templates/*-compiled.js', '!scripts/startup.js',
-					'!scripts/**/auto-*.js', '!scripts/components/requirejs/require.js', '**/*.js', '**/*.css', 'index.html'],
+					'!scripts/**/auto-*.js', '!components/requirejs/require.js', '**/*.js', '**/*.css', 'index.html'],
 				options: {
 					livereload: true
 				}
